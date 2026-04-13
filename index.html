@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <title>India Stock Filing Tracker</title>
 <style>
 /* Palette: #FFFFFF #0F111C #667085 #3464F2 #0E3A8B #0B6E40 #FBE9E8 #FEF4E6 #E8EFFD */
@@ -34,8 +37,8 @@
 }
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
 html { scroll-behavior:smooth }
-body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-       background:var(--bg); color:var(--text); font-size:13px; line-height:1.5; min-height:100vh }
+body { font-family:'Google Sans','DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+       background:var(--bg); color:var(--text); font-size:13.5px; line-height:1.55; min-height:100vh }
 
 /* ── TOPBAR ── */
 .topbar {
@@ -45,7 +48,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-se
 }
 .topbar-l { display:flex; align-items:center; gap:10px }
 .flag { font-size:22px; line-height:1 }
-.brand { font-size:16px; font-weight:800; letter-spacing:-.4px; color:var(--text) }
+.brand { font-size:17px; font-weight:700; letter-spacing:-.3px; color:var(--text) }
 .brand span { color:var(--blue) }
 .topbar-r { display:flex; align-items:center; gap:16px; font-size:12px; color:var(--text2) }
 .topbar-r b { color:var(--text) }
@@ -80,7 +83,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-se
 .badge-amb  { background:var(--amber-tint); color:var(--amber) }
 .badge-neu  { background:var(--blue-tint);  color:var(--blue)  }
 .kpi-num  { font-size:34px; font-weight:800; letter-spacing:-1.5px; color:var(--text); line-height:1 }
-.kpi-lbl  { font-size:12px; color:var(--text2); font-weight:500; margin-top:4px }
+.kpi-lbl  { font-size:12.5px; color:var(--text2); font-weight:500; margin-top:5px; letter-spacing:.1px }
 
 /* ── ANALYTICS ── */
 .analytics { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:18px }
@@ -89,7 +92,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-se
   padding:18px 20px; box-shadow:var(--sh);
 }
 .a-title {
-  font-size:12.5px; font-weight:700; color:var(--text); margin-bottom:14px;
+  font-size:12px; font-weight:700; color:var(--text); margin-bottom:14px; letter-spacing:.1px;
   display:flex; align-items:center; gap:7px;
 }
 .a-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0 }
@@ -232,7 +235,7 @@ col.c-sc  { width:180px } col.c-dir{ width:108px } col.c-ki { width:auto  }
 
 thead th {
   background:var(--bg); color:var(--text3); font-weight:700;
-  font-size:10.5px; text-transform:uppercase; letter-spacing:.6px;
+  font-size:10px; text-transform:uppercase; letter-spacing:.75px;
   padding:10px 14px; text-align:left;
   border-bottom:1px solid var(--border); border-right:1px solid var(--border);
   cursor:pointer; user-select:none; white-space:nowrap; transition:color .12s,background .12s;
@@ -289,7 +292,9 @@ td:last-child { border-right:none }
 .dir-neg { background:var(--red-tint);   color:var(--red);   border:1px solid #fecaca }
 
 .ind-td  { font-size:11.5px; color:var(--text2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
-.ki-prev { font-size:12px; color:var(--text2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.ki-prev { font-size:12px; color:var(--text2); white-space:normal; word-break:break-word; line-height:1.55 }
+.ki-bullet { display:block; padding:1.5px 0 }
+tbody td:last-child { white-space:normal; overflow:visible; text-overflow:clip; vertical-align:top; padding-top:12px; padding-bottom:12px }
 
 /* Detail panel */
 .det-row { display:none }
@@ -297,25 +302,46 @@ td:last-child { border-right:none }
 .det-td { padding:0 !important; border:none !important }
 .det-inner {
   background:var(--bg); border-top:2px solid var(--blue);
-  border-bottom:1px solid var(--border); padding:18px 24px 20px;
-  display:grid; grid-template-columns:1fr 1fr; gap:16px 24px;
+  display:flex; align-items:stretch;
 }
-.dp-sec h4 {
-  font-size:10.5px; font-weight:700; text-transform:uppercase;
-  letter-spacing:.7px; color:var(--text3); margin-bottom:7px;
+.dp-col {
+  flex:1; min-width:0; padding:20px 24px;
+  display:flex; flex-direction:column; gap:22px;
 }
-.dp-sec p { font-size:12.5px; color:var(--text); line-height:1.65 }
+.dp-col + .dp-col { border-left:1px solid var(--border) }
+.dp-sec { display:flex; flex-direction:column; gap:10px }
+.dp-sec-label {
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px;
+  color:var(--text3); display:flex; align-items:center; gap:6px; padding-bottom:4px;
+  border-bottom:1px solid var(--border);
+}
+.dp-icon { font-size:13px; line-height:1 }
+.dp-sec > p { font-size:13px; color:var(--text); line-height:1.72; word-break:break-word }
+.dp-bullets { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px }
+.dp-bullets li {
+  font-size:13px; color:var(--text); line-height:1.65; word-break:break-word;
+  display:flex; gap:8px; align-items:flex-start;
+}
+.dp-bullets li::before { content:'·'; color:var(--blue); font-weight:900; font-size:20px; line-height:1; flex-shrink:0; margin-top:-1px }
+.dp-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 16px }
+.dp-detail-item { display:flex; flex-direction:column; gap:3px }
+.dp-dk { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--text3) }
+.dp-dv { font-size:12.5px; font-weight:600; color:var(--text) }
+.dp-dir-badge { margin-bottom:2px }
+.dp-reason { font-size:13px; color:var(--text2); line-height:1.68; word-break:break-word }
+.dir-lg { font-size:13px !important; padding:5px 14px !important; letter-spacing:.1px }
 .dp-acts {
-  grid-column:1/-1; display:flex; align-items:center; gap:10px;
-  padding-top:12px; border-top:1px solid var(--border); margin-top:2px;
+  display:flex; align-items:center; gap:10px;
+  padding:12px 24px 16px; border-top:1px solid var(--border);
+  background:var(--bg);
 }
 .dp-link {
-  display:inline-flex; align-items:center; gap:6px;
-  padding:6px 14px; background:var(--blue); border-radius:var(--rxs);
-  color:#fff; font-size:12px; font-weight:700; text-decoration:none; transition:background .15s;
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 18px; background:var(--blue); border-radius:var(--rxs);
+  color:#fff; font-size:12.5px; font-weight:700; text-decoration:none; transition:background .15s;
 }
 .dp-link:hover { background:var(--blue-dk) }
-.dp-meta { font-size:11.5px; color:var(--text3); margin-left:auto }
+.dp-meta { font-size:11.5px; color:var(--text3); margin-left:auto; letter-spacing:.1px }
 .sig-chip { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:4px; font-size:11px; font-weight:700 }
 .sc-high { background:var(--amber-tint); color:var(--amber)  }
 .sc-med  { background:var(--indigo-tint);color:var(--indigo) }
@@ -736,24 +762,41 @@ function render(data) {
       <td class="ind-td" title="${e(d.industry)}">${e(d.industry)}</td>
       <td title="${e(d.sub_category)}">${e(d.sub_category)}</td>
       <td>${db}</td>
-      <td><div class="ki-prev" title="${e(ins[0]||'')}">${e(ins[0]||d.key_insights)}</div></td>
+      <td><div class="ki-prev">${ins.slice(0,2).map(s=>`<span class="ki-bullet">· ${e(s)}</span>`).join('')}</div></td>
     </tr>
     <tr class="det-row" id="d${i}">
       <td class="det-td" colspan="9">
         <div class="det-inner">
-          <div class="dp-sec"><h4>📋 Summary</h4><p>${e(d.summary)}</p></div>
-          <div class="dp-sec"><h4>💡 Key Insights</h4><p>${ins.map(s=>`• ${e(s)}`).join('<br>')}</p></div>
-          <div class="dp-sec"><h4>📊 Impact Analysis</h4>
-            <p><span class="sig-chip ${sc(d.significance)}">${e(d.significance)} significance</span><br><br>${e(d.impact_reason)}</p>
+          <div class="dp-col">
+            <div class="dp-sec">
+              <div class="dp-sec-label"><span class="dp-icon">📋</span>Summary</div>
+              <p>${e(d.summary)}</p>
+            </div>
+            <div class="dp-sec">
+              <div class="dp-sec-label"><span class="dp-icon">📊</span>Impact Analysis</div>
+              <div class="dp-dir-badge">${d.direction==='POSITIVE'?'<span class="dir-b dir-pos dir-lg">▲ Positive Impact</span>':'<span class="dir-b dir-neg dir-lg">▼ Negative Impact</span>'}</div>
+              <p class="dp-reason">${e(d.impact_reason)}</p>
+            </div>
           </div>
-          <div class="dp-sec"><h4>ℹ️ Filing Details</h4>
-            <p>Exchange: <b>${e(d.exchange)}</b><br>Filed: <b>${e(d.date)} at ${e(d.time)}</b><br>
-            Size: <b>${e(d.file_size)}</b><br>Industry: <b>${e(d.industry)}</b></p>
+          <div class="dp-col">
+            <div class="dp-sec">
+              <div class="dp-sec-label"><span class="dp-icon">💡</span>Key Insights</div>
+              <ul class="dp-bullets">${ins.map(s=>`<li>${e(s)}</li>`).join('')}</ul>
+            </div>
+            <div class="dp-sec">
+              <div class="dp-sec-label"><span class="dp-icon">ℹ️</span>Filing Details</div>
+              <div class="dp-detail-grid">
+                <div class="dp-detail-item"><span class="dp-dk">Exchange</span><span class="dp-dv" style="display:inline-flex;margin-top:3px"><span class="ex-b ${xc(d.exchange)}">${e(d.exchange)}</span></span></div>
+                <div class="dp-detail-item"><span class="dp-dk">Filed At</span><span class="dp-dv">${e(d.date)} · ${e(d.time)}</span></div>
+                <div class="dp-detail-item"><span class="dp-dk">File Size</span><span class="dp-dv">${e(d.file_size)}</span></div>
+                <div class="dp-detail-item"><span class="dp-dk">Industry</span><span class="dp-dv">${e(d.industry)}</span></div>
+              </div>
+            </div>
           </div>
-          <div class="dp-acts">
-            ${d.link?`<a href="${e(d.link)}" target="_blank" class="dp-link">📄 View Filing PDF</a>`:''}
-            <span class="dp-meta">${e(d.date)} · ${e(d.time)} · ${e(d.exchange)}</span>
-          </div>
+        </div>
+        <div class="dp-acts">
+          ${d.link?`<a href="${e(d.link)}" target="_blank" class="dp-link">📄 View Filing PDF</a>`:''}
+          <span class="dp-meta">${e(d.date)} · ${e(d.time)} · ${e(d.exchange)}</span>
         </div>
       </td>
     </tr>`;
